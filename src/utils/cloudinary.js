@@ -8,6 +8,9 @@ cloudinary.config({
     });
 
 const uploadOnCloudinary=async(localFilePath)=>{
+    // console.log("CLOUD:", process.env.CLOUDINARY_CLOUD_NAME);
+    // console.log("KEY:", process.env.CLOUDINARY_API_KEY);
+    // console.log("SECRET:", process.env.CLOUDINARY_API_SECRET);
     try{
         if(!localFilePath){
             return null;
@@ -21,11 +24,14 @@ const uploadOnCloudinary=async(localFilePath)=>{
         })
 
         //file has been updated successfully
+        console.log(response);
 
         console.log("file is uploaded on cloudinary",response.url);
+        fs.unlinkSync(localFilePath);
         return response;
     }catch(error){
         fs.unlinkSync(localFilePath)// remove the locally saved temporary file as the upload operation get failed
+        console.log("CLOUDINARY ERROR:", error);
         return null;
     }
 }
