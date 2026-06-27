@@ -71,25 +71,28 @@ userSchema.methods.generateAccessToken=function(){
         _id:this._id,
         email:this.email,
         username:this.username,
-        fullname:this.fullname
+        fullName:this.fullName
 
     },
-    process.env.ACCESS_TOKEN_SECCRET,
+    process.env.ACCESS_TOKEN_SECRET,
     {
-        expiresIN:process.env.ACCESS_TOKEN_EXPIRY
+        
+        expiresIn:process.env.ACCESS_TOKEN_EXPIRY
     }
 
  )
 }
 
 userSchema.methods.generateRefreshToken=function(){
+    console.log(process.env.ACCESS_TOKEN_SECRET);
+    console.log(process.env.ACCESS_TOKEN_EXPIRY);
     return jwt.sign(
     {
         _id:this._id,
     },
-    process.env.REFRESH_TOKEN_SECCRET,
+    process.env.REFRESH_TOKEN_SECRET,
     {
-        expiresIN:process.env.REFRESH_TOKEN_EXPIRY
+        expiresIn:process.env.REFRESH_TOKEN_EXPIRY
     }
  )
 }
